@@ -1,3 +1,5 @@
+pip install flask line-bot-sdk python-dotenv
+
 import os
 from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
