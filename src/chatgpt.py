@@ -3,8 +3,9 @@ from src.prompt import Prompt
 import os
 import openai
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
-
+LINE_CHANNEL_ACCESS_TOKEN = os.getenv('LINE_CHANNEL_ACCESS_TOKEN')
+LINE_CHANNEL_SECRET = os.getenv('LINE_CHANNEL_SECRET')
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
 class ChatGPT:
     def __init__(self):
         self.prompt = Prompt()
