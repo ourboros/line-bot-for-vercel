@@ -2,9 +2,13 @@ from src.prompt import Prompt
 
 import os
 import openai
+from flask import Flask, request, abort
+from linebot import LineBotApi, WebhookHandler
+from linebot.exceptions import InvalidSignatureError
+from linebot.models import MessageEvent, TextMessage, TextSendMessage
+import google.generativeai as genai
+from dotenv import load_dotenv
 
-LINE_CHANNEL_ACCESS_TOKEN = os.getenv('LINE_CHANNEL_ACCESS_TOKEN')
-LINE_CHANNEL_SECRET = os.getenv('LINE_CHANNEL_SECRET')
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
 class ChatGPT:
     def __init__(self):
