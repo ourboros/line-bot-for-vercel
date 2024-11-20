@@ -19,16 +19,19 @@ GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(LINE_CHANNEL_SECRET)
 
-@app.route("/callback", methods=['POST'])
+@app.route("/callback", methods=["GET", "POST"])
 def callback():
-    signature = request.headers['X-Line-Signature']
-    body = request.get_data(as_text=True)
-    
-    try:
-        handler.handle(body, signature)
-    except InvalidSignatureError:
-        abort(400)
-    return 'OK'
+    if request.method == "GET":
+        return "Callback URL is working!", 200
+    elif request.method == "POST":
+        signature = request.headers.get('X-Line-Signature')
+        body = request.get_data(as_text=True)
+        
+        try:
+            handler.handle(body, signature)
+        except InvalidSignatureError:
+            abort(400)
+        return "Webhook received!", 200
 
 # Google Gemini 設定
 genai.configure(api_key=GEMINI_API_KEY)
