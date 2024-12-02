@@ -788,9 +788,17 @@ def gemini_response(text):
     response = chat_session.send_message(text)
     return response.text
 
-@app.route("/")
-def home():
-    return "一切正常"
+@app.route("/callback", methods=['POST'])
+def callback():
+    signature = request.headers['X-Line-Signature']
+    body = request.get_data(as_text=True)
+    app.logger.info("Request body: " + body)
+
+    try:
+        handler.handle(body, signature)
+    except InvalidSignatureError:
+        abort(400)
+    return 'OK'
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
