@@ -812,7 +812,3 @@ def handle_message(event):
         reply = TextSendMessage(text="請問有關宜蘭的哪方面活動資訊？")
     
     line_bot_api.reply_message(event.reply_token, reply)
-
-if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
