@@ -1,5 +1,10 @@
 import os
-from flask import Flask, request, jsonify
+from flask import Flask, request, abort
+from linebot import LineBotApi, WebhookHandler
+from linebot.exceptions import InvalidSignatureError
+from linebot.models import MessageEvent, TextMessage, TextSendMessage
+import google.generativeai as genai
+from dotenv import load_dotenv
 
 # 載入環境變數
 load_dotenv()
