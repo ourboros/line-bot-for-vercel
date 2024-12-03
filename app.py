@@ -15,6 +15,9 @@ app = Flask(__name__)
 # 確認環境變數
 REQUIRED_ENV_VARS = ["LINE_CHANNEL_SECRET", "LINE_CHANNEL_ACCESS_TOKEN", "GEMINI_API_KEY"]
 
+line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
+handler = WebhookHandler(LINE_CHANNEL_SECRET)
+
 # 建立生成模型
 generation_config = {
     "temperature": 1,
