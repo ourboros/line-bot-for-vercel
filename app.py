@@ -1,9 +1,6 @@
 import os
 from flask import Flask, request, jsonify
 
-# 載入環境變數
-load_dotenv()
-
 app = Flask(__name__)
 
 # Line Bot 和 OpenAI 設定
