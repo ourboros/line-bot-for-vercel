@@ -807,19 +807,5 @@ def callback():
             "message": str(e)
         }), 500
 
-@handler.add(MessageEvent, message=TextMessage)
-def handle_message(event):
-    msg = event.message.text
-    print(f"Received message: {msg}")
-    try:
-        response = gemini_response(msg)
-        print(f"Gemini response: {response}")
-        reply = TextSendMessage(text=response)
-    except Exception as e:
-        print(f"Error: {str(e)}")
-        reply = TextSendMessage(text="請問有關宜蘭的哪方面活動資訊？")
-    
-    line_bot_api.reply_message(event.reply_token, reply)
-
 if __name__ == "__main__":
     app.run(debug=True)
