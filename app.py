@@ -1,18 +1,11 @@
 import os
 from flask import Flask, request, jsonify
 
+# 創建 Flask 應用程式
 app = Flask(__name__)
 
-# Line Bot 和 OpenAI 設定
-LINE_CHANNEL_ACCESS_TOKEN = os.getenv('LINE_CHANNEL_ACCESS_TOKEN')
-LINE_CHANNEL_SECRET = os.getenv('LINE_CHANNEL_SECRET')
-GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
-
-assert LINE_CHANNEL_ACCESS_TOKEN, "LINE_CHANNEL_ACCESS_TOKEN"
-assert LINE_CHANNEL_SECRET, "LINE_CHANNEL_SECRET"
-
-# Google Gemini 設定
-genai.configure(api_key=GEMINI_API_KEY)
+# 確認環境變數
+REQUIRED_ENV_VARS = ["LINE_CHANNEL_SECRET", "LINE_CHANNEL_ACCESS_TOKEN"]
 
 @app.route("/", methods=["GET"])
 def check_status():
