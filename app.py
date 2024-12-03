@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, abort
+from flask import Flask, request, jsonify
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
@@ -9,15 +9,11 @@ from dotenv import load_dotenv
 # 載入環境變數
 load_dotenv()
 
+# 創建 Flask 應用程式
 app = Flask(__name__)
 
-# Line Bot 和 OpenAI 設定
-LINE_CHANNEL_ACCESS_TOKEN = os.getenv('LINE_CHANNEL_ACCESS_TOKEN')
-LINE_CHANNEL_SECRET = os.getenv('LINE_CHANNEL_SECRET')
-GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
-
-line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
-handler = WebhookHandler(LINE_CHANNEL_SECRET)
+# 確認環境變數
+REQUIRED_ENV_VARS = ["LINE_CHANNEL_SECRET", "LINE_CHANNEL_ACCESS_TOKEN", "GEMINI_API_KEY"]
 
 @app.route("/", methods=["GET"])
 def check_status():
