@@ -19,15 +19,14 @@ GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 line_handler = WebhookHandler(LINE_CHANNEL_SECRET)
 
-if LINE_CHANNEL_ACCESS_TOKEN == 'default_token' or LINE_CHANNEL_SECRET == 'default_secret':
-    raise ValueError("Environment variables not set correctly. Check your .env file or platform settings.")
+@app.route("/callback", methods=['POST'])
+def callback():
+    signature = request.headers['X-Line-Signature']
+    body = request.get_data(as_text=True)
+    app.logger.info("Request body: " + body)
 
-try:
-    # 初始化 LineBot API 和 WebhookHandler
-    line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
-    handler = WebhookHandler(LINE_CHANNEL_SECRET)
-    print("Initialization successful!")
-
-    # 測試 BaseHTTPRequestHandler 是否正確設置
-except Exception as e:
-    print("Initialization failed:", str(e))
+    try:
+        handler.handle(body, signature)
+    except InvalidSignatureError:
+        abort(400)
+    return 'OK'
