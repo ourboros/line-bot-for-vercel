@@ -1,4 +1,3 @@
-from flask import Flask
 from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
@@ -13,8 +12,6 @@ logging.basicConfig(level=logging.INFO)
 
 @app.route("/callback", methods=["POST"])
 def callback():
-    signature = request.headers['X-Line-Signature']
-    body = request.get_data(as_text=True)
     logging.info(f"Received request: {request.get_data(as_text=True)}")
     return "OK", 20
 
