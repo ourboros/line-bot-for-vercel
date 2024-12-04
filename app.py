@@ -10,16 +10,19 @@ app = Flask(__name__)
 
 logging.basicConfig(level=logging.INFO)
 
-@app.route("/callback", methods=["POST"])
+@app.route("/callback", methods=['POST'])
 def callback():
-    app.logger.info("Callback triggered")    
+    signature = request.headers['X-Line-Signature']
+    body = request.get_data(as_text=True)
+    app.logger.info("Request body: " + body)
+
     try:
-    handler.handle(body, signature)
-    except InvalidSignatureError as e:
-    app.logger.error(f"Invalid Signature: {e}")
-    abort(400)
-    return "OK"  
-app.logger.info("Received a request at /callback")
+        handler.handle(body, signature)
+    except InvalidSignatureError:
+        app.logger.error("Invalid signature")
+        abort(400)
+    return 'OK'
+
 
 @app.route("/")
 def home():
