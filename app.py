@@ -6,6 +6,8 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage
 import google.generativeai as genai
 from dotenv import load_dotenv
 
+print(f"DEBUG: base={base}, type(base)={type(base)}")
+
 # 載入環境變數
 load_dotenv()
 
