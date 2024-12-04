@@ -15,14 +15,7 @@ try:
     print("Initialization successful!")
 
     # 測試 BaseHTTPRequestHandler 是否正確設置
-    base = BaseHTTPRequestHandler
-    print(f"Base class type: {type(base)}")
-
-    # 檢查 base 是否是 BaseHTTPRequestHandler 的子類
-    if isinstance(base, type) and issubclass(base, BaseHTTPRequestHandler):
-        print("base is a subclass of BaseHTTPRequestHandler")
-    else:
-        print("base is NOT a subclass of BaseHTTPRequestHandler")
+    # 不再進行 issubclass() 檢查，直接初始化並處理
 
 except Exception as e:
     print("Initialization failed:", str(e))
