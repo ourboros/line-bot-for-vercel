@@ -12,8 +12,7 @@ logging.basicConfig(level=logging.INFO)
 
 @app.route("/callback", methods=["POST"])
 def callback():
-    logging.info(f"Received request: {request.get_data(as_text=True)}")
-    return "OK", 20
+    return "OK"
 
 @app.route("/")
 def home():
