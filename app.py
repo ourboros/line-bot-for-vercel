@@ -1,6 +1,6 @@
 from linebot import LineBotApi, WebhookHandler
 import os
-from http.server import BaseHTTPRequestHandler
+from server import app
 
 LINE_CHANNEL_ACCESS_TOKEN = os.getenv('LINE_CHANNEL_ACCESS_TOKEN', 'default_token')
 LINE_CHANNEL_SECRET = os.getenv('LINE_CHANNEL_SECRET', 'default_secret')
@@ -15,7 +15,5 @@ try:
     print("Initialization successful!")
 
     # 測試 BaseHTTPRequestHandler 是否正確設置
-    # 不再進行 issubclass() 檢查，直接初始化並處理
-
 except Exception as e:
     print("Initialization failed:", str(e))
