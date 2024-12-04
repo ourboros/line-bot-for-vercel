@@ -15,13 +15,8 @@ logging.basicConfig(level=logging.INFO)
 def callback():
     signature = request.headers['X-Line-Signature']
     body = request.get_data(as_text=True)
-    app.logger.info("Request body: " + body)
-
-    try:
-        handler.handle(body, signature)
-    except InvalidSignatureError:
-        abort(400)
-    return 'OK'
+    logging.info(f"Received request: {request.get_data(as_text=True)}")
+    return "OK", 20
 
 @app.route("/")
 def home():
