@@ -12,7 +12,14 @@ logging.basicConfig(level=logging.INFO)
 
 @app.route("/callback", methods=["POST"])
 def callback():
-    return "OK"
+    app.logger.info("Callback triggered")    
+    try:
+    handler.handle(body, signature)
+    except InvalidSignatureError as e:
+    app.logger.error(f"Invalid Signature: {e}")
+    abort(400)
+    return "OK"  
+app.logger.info("Received a request at /callback")
 
 @app.route("/")
 def home():
